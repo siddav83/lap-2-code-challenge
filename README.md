@@ -3,6 +3,7 @@
 - At the moment all the posts are visible below the form and when you submit a new post it is appended above the other posts.
 - Now we realise that the jwt token needs to be added so that only the person who subbitted the post can have access to it, so we'll add this.
 - Sorry if it's a bit confusing/messy, thanks for the review :)
+- Also we haven't added any CSS yet
 ## Istallation and Usage
 ### Installation
 1. Fork and/or clone this repo.
