@@ -16,9 +16,10 @@ async function submitPost(e) {
 		body: e.target.body.value
     };
 
-    sendToServer(postData);
+    const newPost = await sendToServer(postData);
+    console.log(newPost);
 
-    appendOne(postData)
+    appendOne(newPost)
 //    setTimeout(() => {
 //     location.reload();
 // }, 200);
@@ -26,13 +27,16 @@ async function submitPost(e) {
 
 async function sendToServer(postData) {
 	try {
-	await fetch("http://localhost:3000/posts", {
+	    const newPostData = await fetch("http://localhost:3000/posts", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
 			},
 			body: JSON.stringify(postData),
 		});
+        newPost = await newPostData.json()
+        console.log("fetch result", newPost);
+        return newPost
 	} catch (error) {
 		console.log(error);
 	}
@@ -58,6 +62,7 @@ async function fetchAll() {
 
 async function appendOne(post) {
     //create h1 tag for title
+    console.log(post)
     const div = document.createElement('div');
     div.setAttribute('id', post.id);
     allPosts.insertBefore(div,allPosts.children[0])
