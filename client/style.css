@@ -1,0 +1,13 @@
+body {
+    font-family: 'Star Jedi', arial;
+    background: black;
+    color: gold;
+}
+
+#container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+
