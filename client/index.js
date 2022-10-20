@@ -61,6 +61,14 @@ async function fetchOne(id) {
     try {
         const data = await fetch(`http://localhost:3000/posts/${id}`);
         const res = await data.json();
+        console.log("res", res)
+        console.log("error", res.err)
+        if(res.err == "Post not found") {
+            const postToRemove = document.querySelector(".post");
+            postToRemove.style.display = "none";
+            revealForm()
+            console.log("reveal")
+        }
         appendOne(res)
     } catch (error) {
         console.log(error)
@@ -74,6 +82,7 @@ async function appendOne(post) {
     console.log(post)
     const div = document.createElement('div');
     div.setAttribute('id', post.id);
+    div.setAttribute('class', "post")
     allPosts.insertBefore(div,allPosts.children[0])
     const title = document.createElement('h1');
     title.textContent = post.title;
@@ -94,6 +103,11 @@ async function hideForm() {
 
 async function redirect(id) {
     window.location.href = `http://127.0.0.1:5500/client/index.html/${id}`;
+}
+
+async function revealForm() {
+    const container = document.getElementById("container");
+    container.style.display = "block";
 }
 
 
@@ -122,8 +136,8 @@ function updateMain(hash) {
         fetchOne(id);
         // id ? loadModalFor(category, id) : loadIndexFor(category)
     } else {
-        // const container = document.getElementById("container");
-        // container.style.display = "block"
+        const container = document.getElementById("container");
+        container.style.display = "block"
         // const header = document.createElement('h1');
         // header.className = 'title';
         // header.textContent = "Welcome to the Reading Room";
