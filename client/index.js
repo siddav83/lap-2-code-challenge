@@ -3,6 +3,8 @@ const allPosts = document.getElementById('all-post');
 
 // fetchAll()
 
+updateContent()
+
 form.addEventListener('submit',submitPost)
 
 async function submitPost(e) {
@@ -21,7 +23,8 @@ async function submitPost(e) {
 
     hideForm()
     // redirect(newPost.id)
-    appendOne(newPost)
+    // appendOne(newPost)
+    window.location.hash = `${newPost.id}`
 //    setTimeout(() => {
 //     location.reload();
 // }, 200);
@@ -58,7 +61,7 @@ async function fetchOne(id) {
     try {
         const data = await fetch(`http://localhost:3000/posts/${id}`);
         const res = await data.json();
-        return res
+        appendOne(res)
     } catch (error) {
         console.log(error)
     }
@@ -95,13 +98,13 @@ async function redirect(id) {
 
 
 // ***************
-// window.addEventListener('hashchange', updateContent);
+window.addEventListener('hashchange', updateContent);
 
-// function updateContent(){
-//     let hash = window.location.hash.substring(1);
-//     updateNav(hash);
-//     // updateMain(hash);
-// }
+function updateContent(){
+    let hash = window.location.hash.substring(1);
+    // updateNav(hash);
+    updateMain(hash);
+}
 
 // function updateNav(hash) {
 //     const updateLink = link => {
@@ -109,3 +112,22 @@ async function redirect(id) {
 //     };
 //     navLinks.forEach(updateLink)
 // }
+
+function updateMain(hash) {
+    // main.innerHTML = '';
+    if (hash) {
+        let id = hash;
+        const container = document.getElementById("container");
+        container.style.display = "none"
+        fetchOne(id);
+        // id ? loadModalFor(category, id) : loadIndexFor(category)
+    } else {
+        // const container = document.getElementById("container");
+        // container.style.display = "block"
+        // const header = document.createElement('h1');
+        // header.className = 'title';
+        // header.textContent = "Welcome to the Reading Room";
+        // main.appendChild(header);
+        console.log("didn't work");
+    }
+}
