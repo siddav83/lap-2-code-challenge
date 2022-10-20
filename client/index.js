@@ -71,6 +71,7 @@ async function fetchOne(id) {
 
 async function appendOne(post) {
     //create h1 tag for title
+    allPosts.style.inlineSize = "200px"
     console.log(post)
     const div = document.createElement('div');
     div.setAttribute('id', post.id);
@@ -106,6 +107,7 @@ async function revealForm() {
 async function hidePost() {
     const postToRemove = document.querySelector(".post");
     postToRemove.style.display = "none";
+    allPosts.style.inlineSize = "0";
 }
 
 // ***************
@@ -120,6 +122,7 @@ function updateMain(hash) {
     if (hash) {
         let id = hash;
         hideForm()
+        allPosts.style.inlineSize = "0px"
         fetchOne(id);
     } else {
         revealForm()
