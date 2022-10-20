@@ -1,7 +1,7 @@
 const form = document.getElementById("form");
 const allPosts = document.getElementById('all-post');
 
-fetchAll()
+// fetchAll()
 
 form.addEventListener('submit',submitPost)
 
@@ -19,6 +19,8 @@ async function submitPost(e) {
     const newPost = await sendToServer(postData);
     console.log(newPost);
 
+    hideForm()
+    // redirect(newPost.id)
     appendOne(newPost)
 //    setTimeout(() => {
 //     location.reload();
@@ -46,16 +48,20 @@ async function fetchAll() {
     try {
         const data = await fetch("http://localhost:3000/posts");
         const res = await data.json();
-
         res.forEach((data) => appendOne(data))
-
-
-
     } catch (error) {
         console.log(error)
     }
+};
 
- 
+async function fetchOne(id) {
+    try {
+        const data = await fetch(`http://localhost:3000/posts/${id}`);
+        const res = await data.json();
+        return res
+    } catch (error) {
+        console.log(error)
+    }
 };
 
 
@@ -77,3 +83,29 @@ async function appendOne(post) {
     div.appendChild(body);
 }
 
+async function hideForm() {
+    const container = document.getElementById("container");
+    container.style.display = "none";
+}
+
+
+async function redirect(id) {
+    window.location.href = `http://127.0.0.1:5500/client/index.html/${id}`;
+}
+
+
+// ***************
+// window.addEventListener('hashchange', updateContent);
+
+// function updateContent(){
+//     let hash = window.location.hash.substring(1);
+//     updateNav(hash);
+//     // updateMain(hash);
+// }
+
+// function updateNav(hash) {
+//     const updateLink = link => {
+//         link.classList = (link.textContent == '+' && hash.includes('new') || hash.includes(link.textContent)) ? ['navlink', 'current'] : ['navlink']
+//     };
+//     navLinks.forEach(updateLink)
+// }
