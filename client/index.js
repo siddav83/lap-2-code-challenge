@@ -1,8 +1,6 @@
 const form = document.getElementById("form");
 const allPosts = document.getElementById('all-post');
 
-// fetchAll()
-
 updateContent()
 
 form.addEventListener('submit',submitPost)
@@ -22,12 +20,7 @@ async function submitPost(e) {
     console.log(newPost);
 
     hideForm()
-    // redirect(newPost.id)
-    // appendOne(newPost)
     window.location.hash = `${newPost.id}`
-//    setTimeout(() => {
-//     location.reload();
-// }, 200);
 };
 
 async function sendToServer(postData) {
@@ -64,8 +57,7 @@ async function fetchOne(id) {
         console.log("res", res)
         console.log("error", res.err)
         if(res.err == "Post not found") {
-            const postToRemove = document.querySelector(".post");
-            postToRemove.style.display = "none";
+            hidePost()
             revealForm()
             console.log("reveal")
         }
@@ -100,48 +92,37 @@ async function hideForm() {
     container.style.display = "none";
 }
 
-
-async function redirect(id) {
-    window.location.href = `http://127.0.0.1:5500/client/index.html/${id}`;
-}
-
 async function revealForm() {
     const container = document.getElementById("container");
     container.style.display = "block";
+    const title = document.getElementById("title");
+    title.value = "Type here"
+    const pseudonym = document.getElementById("pseudonym");
+    pseudonym.value = "Type something"
+    const body = document.getElementById("body");
+    body.value = ""
 }
 
+async function hidePost() {
+    const postToRemove = document.querySelector(".post");
+    postToRemove.style.display = "none";
+}
 
 // ***************
 window.addEventListener('hashchange', updateContent);
 
 function updateContent(){
     let hash = window.location.hash.substring(1);
-    // updateNav(hash);
     updateMain(hash);
 }
 
-// function updateNav(hash) {
-//     const updateLink = link => {
-//         link.classList = (link.textContent == '+' && hash.includes('new') || hash.includes(link.textContent)) ? ['navlink', 'current'] : ['navlink']
-//     };
-//     navLinks.forEach(updateLink)
-// }
-
 function updateMain(hash) {
-    // main.innerHTML = '';
     if (hash) {
         let id = hash;
-        const container = document.getElementById("container");
-        container.style.display = "none"
+        hideForm()
         fetchOne(id);
-        // id ? loadModalFor(category, id) : loadIndexFor(category)
     } else {
-        const container = document.getElementById("container");
-        container.style.display = "block"
-        // const header = document.createElement('h1');
-        // header.className = 'title';
-        // header.textContent = "Welcome to the Reading Room";
-        // main.appendChild(header);
-        console.log("didn't work");
+        revealForm()
+        hidePost()
     }
 }
