@@ -1,5 +1,33 @@
-.contain-body {
-    background-color: red;
+body {
+    font-family: 'Star Jedi', arial;
+    /* background-image: url("./images/star_wars_bg.jpg"); */
+    background-color: black;
+    color: gold;
     display: flex;
     justify-content: center;
+    align-content: center;
+    /* height: 100vh; */
+    margin-top: 10%;
 }
+
+
+#form input[type=text] {
+    margin-bottom: 10px;
+    margin-top: 5px;
+    color: white;
+    background-color: black;
+    border: solid white 1px;
+}
+
+#form textarea {
+    color: white;
+    background-color: black;
+    border: solid white 1px;
+    margin-top: 5px;
+}
+
+#form label {
+    margin-bottom: 100px;
+}
+
+
